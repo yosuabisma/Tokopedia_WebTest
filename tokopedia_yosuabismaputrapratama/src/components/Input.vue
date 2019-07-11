@@ -8,6 +8,9 @@
       <input @keyup.enter="inputValidation()" v-on:click="refresh()" v-if="invalid==true" class="inputs input-style-invalid" type="text" v-model="message" placeholder="Ketikkan nominal uang...">
       <div class="submit-button" v-on:click="inputValidation()">Submit</div>
     </div>
+    <div id="invalid-section" v-if="invalid==true">
+      <font>Invalid Input Format!</font>
+    </div>
     <div id="results-section">
       <div id="waiting" v-if="results==false">
         <div class="mascot">
@@ -25,22 +28,24 @@
           <p>Ada <b>kesalahan input</b>, periksa kembali</p>
         </div>
       </div>
-      <div id="details" v-if="results==true">
+      <div id="details" class="fade-in" v-if="results==true">
         <h3>Results</h3>
-        <table>
-          <tr>
-            <th colspan="2" class="cell-header"></th>
-            <th class="cell-header">Fraction</th>
-            <th class="cell-header">Amount</th>
-          </tr>
-          <tr v-for="fr in fractions" v-if="fr.amount>0">
-            <td colspan="2">Rp</td>
-            <td class="cell">{{fr.nominal}}</td>
-            <td class="cell">{{fr.amount}}</td>
-          </tr>
-        </table>
-        <div id="left" v-if="left>0">
-          <font>Left: Rp {{left}} (no available fraction)</font>
+        <div class="table-results">
+          <table>
+            <tr>
+              <th colspan="2" class="cell-header"></th>
+              <th class="cell-header">Fraction</th>
+              <th class="cell-header">Amount</th>
+            </tr>
+            <tr v-for="fr in fractions" v-if="fr.amount>0">
+              <td colspan="2">Rp</td>
+              <td class="cell">{{fr.nominal}}</td>
+              <td class="cell">{{fr.amount}}</td>
+            </tr>
+          </table>
+          <div id="left" v-if="left>0">
+            <font>Left: Rp {{left}} (no available fraction)</font>
+          </div>
         </div>
       </div>
     </div>
@@ -67,7 +72,6 @@
           {nominal:100, amount:0},
           {nominal:50, amount:0}
         ]
-
       }
     },
     methods:{
@@ -116,6 +120,11 @@
   #input-section{
     background-image: linear-gradient(to bottom right,#1dbc60,#26dc46,#26dc46,#52ff0d);
     padding: 20px;
+    position: fixed;
+    margin: auto;
+    top:0;
+    left: 0;
+    right: 0;
   }
   #logo{
     padding: 20px;
@@ -141,8 +150,8 @@
     color: #26dc46;
   }
   .input-style-invalid{
-    border: 2px solid #e74c3c;
-    color: #e74c3c;
+    border: 2px solid #d64541;
+    color: #d64541;
   }
   ::placeholder {
     color: #e0e0e0;
@@ -163,10 +172,23 @@
     background-color:#52ff0d;
     border: 2px solid #1dbc60;
   }
+  #invalid-section{
+    background-color:#d64541;
+    color:#ffffff;
+    padding: 10px;
+    position: fixed;
+    margin: auto;
+    margin-top: -20px;
+    left: 0;
+    right: 0;
+    font-size: 12px;
+  }
   #results-section{
+    margin-top: 250px;
     background-color: #ffffff;
     height: 100%;
     overflow: auto;
+    padding: 30px;
   }
   .mascot{
     padding-top: 60px;
@@ -193,23 +215,29 @@
     100% { transform: scale(1,1)      translateY(0); }
   }
   .note{
-    color:#262626;
+    color:#555555;
   }
   h3{
-    color:#262626;
+    color:#555555;
     border-bottom: 3px solid #26dc46;
     font-size: 26px;
     width: 100px;
   }
+  .table-results{
+    padding: 20px 20px;
+    border: 2px solid #26dc46;
+    border-radius: 16px;
+    width: 350px;
+  }
   table{
     width:350px;
+    color: #555555;
   }
   td,th{
     padding: 4px 16px;
     width: 175px;
     text-align: center;
     font-weight: bold;
-    border-bottom: 1px solid #3f3f3f;
   }
   .cell-header{
     color: #26dc46;
@@ -221,7 +249,7 @@
     font-size: 14px;
   }
   #left{
-    margin-top: 8px;
+    margin-top: 16px;
     background-color: #26dc46;
     color: #ffffff;
     padding: 4px;
@@ -229,5 +257,17 @@
     width: 270px;
     font-weight: bold;
     font-size: 14px
+  }
+  .fade-in {
+    animation: fadeIn ease 1s;
+    -webkit-animation: fadeIn ease 1s;
+  }
+  @keyframes fadeIn{
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
   }
 </style>
