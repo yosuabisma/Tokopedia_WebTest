@@ -4,26 +4,28 @@
       <div id="logo">
         <img src="./../assets/tokopedia-white-logo.png" id="logo-tokopedia">
       </div>
-      <input v-if="invalid==false" class="inputs input-style" type="text" v-model="message" placeholder="Your Nominal...">
-      <input v-if="invalid==true" class="inputs input-style-invalid" type="text" v-model="message" placeholder="Your Nominal...">
+      <input @keyup.enter="inputValidation()" v-if="invalid==false" class="inputs input-style" type="text" v-model="message" placeholder="Your Nominal...">
+      <input @keyup.enter="inputValidation()" v-if="invalid==true" class="inputs input-style-invalid" type="text" v-model="message" placeholder="Your Nominal...">
       <div class="submit-button" v-on:click="inputValidation()">Submit</div>
     </div>
     <div id="results-section">
-      <div id="details">
-        <h3>Details</h3>
+      <h3>Results</h3>
+      <div id="details" v-if="results==true">
         <table>
           <tr>
+            <th colspan="2" class="cell-header"></th>
             <th class="cell-header">Fraction</th>
             <th class="cell-header">Amount</th>
           </tr>
-          <tr v-for="fr in fractions">
-            <td class="cell">Rp {{fr.nominal}}</td>
+          <tr v-for="fr in fractions" v-if="fr.amount>0">
+            <td colspan="2">Rp</td>
+            <td class="cell">{{fr.nominal}}</td>
             <td class="cell">{{fr.amount}}</td>
           </tr>
         </table>
         <br/>
-        <div v-if="left>0">
-          <font><b>Left: Rp {{left}} (no available fraction)</b></font>
+        <div id="left" v-if="left>0">
+          <font>Left: Rp {{left}} (no available fraction)</font>
         </div>
       </div>
     </div>
@@ -38,6 +40,7 @@
         message:null,
         invalid:false,
         left:0,
+        results:false,
         fractions : [
           {nominal:100000, amount:0},
           {nominal:50000, amount:0},
@@ -82,9 +85,12 @@
         if(nominalInput>0){
           this.left=nominalInput;
         }
+        this.results=true;
       },
       refresh(){
         this.left=0;
+        this.results=false;
+        this.invalid=false;
         for(var i=0; i<this.fractions.length;i++){
           this.fractions[i].amount=0;
         }
@@ -93,26 +99,25 @@
   }
 </script>
 <style scoped>
+  #input-section{
+    background-image: linear-gradient(to bottom right,#1dbc60,#26dc46,#26dc46,#52ff0d);
+    padding: 20px;
+  }
   #logo{
     padding: 20px;
   }
   #logo-tokopedia{
     height: 50px;
   }
-  #input-section{
-    background-color: #26dc46;
-    padding: 40px 40px;
-  }
   .inputs{
     border-radius: 16px;
-    width: 400px;
+    width: 300px;
     padding: 10px 10px;
     font-size: 18px;
     text-align: center;
-
   }
   .inputs:focus{
-    border: 2px solid #26dc46;
+    border: 2px solid #52ff0d;
     outline: none !important;
     color: #26dc46;
   }
@@ -141,30 +146,36 @@
     background-color:#52ff0d;
   }
   #results-section{
-    padding: 40px 40px;
+    padding: 20px;
     background-color: #ffffff;
     height: 100%;
   }
   h3{
     color:#26dc46;
-    border-bottom: 2px solid #26dc46;
+    border-bottom: 3px solid #26dc46;
     width: 100px;
   }
   table{
-    width:300px;
-
+    width:350px;
   }
   td,th{
-    padding: 8px 16px;
-    width: 150px;
-    text-align: left;
-    font-size: 16px;
+    padding: 4px 16px;
+    width: 175px;
+    text-align: center;
   }
   .cell-header{
-    background-color:#26dc46;
-    color: #ffffff;
+    color: #26dc46;
+    font-size: 14px;
   }
   .cell{
-    background-color: #ececec;
+    font-size: 18px;
+  }
+  #left{
+    background-color: #26dc46;
+    color: #ffffff;
+    padding: 4px;
+    border-radius: 8px;
+    width: 270px;
+    font-weight: bold;
   }
 </style>
