@@ -22,7 +22,7 @@
         </div>
         <div class="note" v-if="invalid==true">
           <h2><b>Ups!</b></h2>
-          <p>Ada kesalahan input, periksa kembali</p>
+          <p>Ada <b>kesalahan input</b>, periksa kembali</p>
         </div>
       </div>
       <div id="details" v-if="results==true">
@@ -39,7 +39,6 @@
             <td class="cell">{{fr.amount}}</td>
           </tr>
         </table>
-        <br/>
         <div id="left" v-if="left>0">
           <font>Left: Rp {{left}} (no available fraction)</font>
         </div>
@@ -93,7 +92,6 @@
             this.fractions[i].amount= tempAmount;
             tempFraction = this.fractions[i].nominal*tempAmount;
             nominalInput = nominalInput - tempFraction;
-
           }else{
             this.fractions[i].amount= 0;
           }
@@ -166,9 +164,9 @@
     border: 2px solid #1dbc60;
   }
   #results-section{
-    padding: 10px;
     background-color: #ffffff;
     height: 100%;
+    overflow: auto;
   }
   .mascot{
     padding-top: 60px;
@@ -223,11 +221,13 @@
     font-size: 14px;
   }
   #left{
+    margin-top: 8px;
     background-color: #26dc46;
     color: #ffffff;
     padding: 4px;
     border-radius: 8px;
     width: 270px;
     font-weight: bold;
+    font-size: 14px
   }
 </style>
