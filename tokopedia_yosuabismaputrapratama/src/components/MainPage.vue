@@ -19,7 +19,4 @@
   }
 </script>
 <style scoped>
-  #main-page{
-    margin-top: 40px;
-  }
 </style>
