@@ -4,13 +4,29 @@
       <div id="logo">
         <img src="./../assets/tokopedia-white-logo.png" id="logo-tokopedia">
       </div>
-      <input @keyup.enter="inputValidation()" v-if="invalid==false" class="inputs input-style" type="text" v-model="message" placeholder="Your Nominal...">
-      <input @keyup.enter="inputValidation()" v-if="invalid==true" class="inputs input-style-invalid" type="text" v-model="message" placeholder="Your Nominal...">
+      <input @keyup.enter="inputValidation()" v-on:click="refresh()" v-if="invalid==false" class="inputs input-style" type="text" v-model="message" placeholder="Ketikkan nominal uang...">
+      <input @keyup.enter="inputValidation()" v-on:click="refresh()" v-if="invalid==true" class="inputs input-style-invalid" type="text" v-model="message" placeholder="Ketikkan nominal uang...">
       <div class="submit-button" v-on:click="inputValidation()">Submit</div>
     </div>
     <div id="results-section">
-      <h3>Results</h3>
+      <div id="waiting" v-if="results==false">
+        <div class="mascot">
+          <img src="./../assets/Tokopedia_Mascot.png" class="mascot-tokopedia bounce">
+        </div>
+        <div class="note" v-if="message==null">
+          <h2><b>Halo!</b></h2>
+          <p>Silahkan masukkan nominal uang</p>
+        </div>
+        <div class="note" v-if="message!=null&&invalid==false">
+          <p>Tekan <b>Enter</b> atau klik tombol <b>Submit</b> untuk melihat hasil.</p>
+        </div>
+        <div class="note" v-if="invalid==true">
+          <h2><b>Ups!</b></h2>
+          <p>Ada kesalahan input, periksa kembali</p>
+        </div>
+      </div>
       <div id="details" v-if="results==true">
+        <h3>Results</h3>
         <table>
           <tr>
             <th colspan="2" class="cell-header"></th>
@@ -111,9 +127,10 @@
   }
   .inputs{
     border-radius: 16px;
-    width: 300px;
+    width: 250px;
     padding: 10px 10px;
     font-size: 18px;
+    font-weight: bold;
     text-align: center;
   }
   .inputs:focus{
@@ -140,19 +157,50 @@
     padding: 10px 10px;
     width: 150px;
     border-radius: 16px;
+    border: 2px solid #1dbc60;
     font-size: 18px;
+    font-weight: bold;
   }
   .submit-button:hover{
     background-color:#52ff0d;
+    border: 2px solid #1dbc60;
   }
   #results-section{
-    padding: 20px;
+    padding: 10px;
     background-color: #ffffff;
     height: 100%;
   }
+  .mascot{
+    padding-top: 60px;
+  }
+  .mascot-tokopedia{
+    height: 120px;
+    align-self: flex-end;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    margin: 0 auto 0 auto;
+    transform-origin: bottom;
+  }
+  .bounce{
+    animation-name: bounce;
+    animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+  }
+  @keyframes bounce {
+    0%   { transform: scale(1,1)      translateY(0); }
+    10%  { transform: scale(1.1,.9)   translateY(0); }
+    25%  { transform: scale(.9,1)   translateY(-60px); }
+    56%  { transform: scale(1,.65) translateY(0); }
+    64%  { transform: scale(1,1)      translateY(-3px); }
+    80%  { transform: scale(1,1)      translateY(0); }
+    100% { transform: scale(1,1)      translateY(0); }
+  }
+  .note{
+    color:#262626;
+  }
   h3{
-    color:#26dc46;
+    color:#262626;
     border-bottom: 3px solid #26dc46;
+    font-size: 26px;
     width: 100px;
   }
   table{
@@ -162,13 +210,17 @@
     padding: 4px 16px;
     width: 175px;
     text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid #3f3f3f;
   }
   .cell-header{
     color: #26dc46;
-    font-size: 14px;
+    font-size: 12px;
+    padding-bottom: 4px;
+    border: none;
   }
   .cell{
-    font-size: 18px;
+    font-size: 14px;
   }
   #left{
     background-color: #26dc46;
