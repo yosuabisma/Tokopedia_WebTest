@@ -20,7 +20,11 @@ Run Application
 ```bash
 npm run dev
 ```
-
+If there is an error, you need to install missing modules
+```bash
+npm i
+```
+<br/>
 ### 2. Open via Browser (Live Demo)
 Open your Browser<br/>Go to address
 http://tokopedia-yosuabisma.herokuapp.com
