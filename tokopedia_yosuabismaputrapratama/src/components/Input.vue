@@ -17,15 +17,15 @@
           <img src="./../assets/Tokopedia_Mascot.png" class="mascot-tokopedia bounce">
         </div>
         <div class="note" v-if="message==null">
-          <h2><b>Halo!</b></h2>
-          <p>Silahkan masukkan nominal uang</p>
+          <font class="note-title"><b>Halo!</b></font><br/>
+          <font>Silahkan masukkan nominal uang</font>
         </div>
         <div class="note" v-if="message!=null&&invalid==false">
-          <p>Tekan <b>Enter</b> atau klik tombol <b>Submit</b> untuk melihat hasil.</p>
+          <font>Tekan <b>Enter</b> atau klik tombol <b>Submit</b> untuk melihat hasil.</font>
         </div>
         <div class="note" v-if="invalid==true">
-          <h2><b>Ups!</b></h2>
-          <p>Ada <b>kesalahan input</b>, periksa kembali</p>
+          <font class="note-title"><b>Ups!</b></font><br/>
+          <font>Ada <b>kesalahan input</b>, periksa kembali</font>
         </div>
       </div>
       <div id="details" class="fade-in" v-if="results==true">
@@ -158,19 +158,17 @@
   }
   .submit-button{
     margin-top: 16px;
-    background-color:#1dbc60;
-    color: #ffffff;
+    background-color:#ffcd02;
+    color: #555555;
     cursor: pointer;
     padding: 10px 10px;
-    width: 150px;
+    width: 100px;
     border-radius: 16px;
-    border: 2px solid #1dbc60;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
   }
   .submit-button:hover{
-    background-color:#52ff0d;
-    border: 2px solid #1dbc60;
+    background-color:#ffa800;
   }
   #invalid-section{
     background-color:#d64541;
@@ -188,13 +186,17 @@
     background-color: #ffffff;
     height: 100%;
     overflow: auto;
-    padding: 30px;
+    padding:18px;
   }
   .mascot{
     padding-top: 60px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: auto;
   }
   .mascot-tokopedia{
-    height: 120px;
+    height: 100px;
     align-self: flex-end;
     animation-duration: 2s;
     animation-iteration-count: infinite;
@@ -211,23 +213,27 @@
     25%  { transform: scale(.9,1)   translateY(-60px); }
     56%  { transform: scale(1,.65) translateY(0); }
     64%  { transform: scale(1,1)      translateY(-3px); }
+    73%  { transform: scale(1,1)      translateY(0); }
     80%  { transform: scale(1,1)      translateY(0); }
     100% { transform: scale(1,1)      translateY(0); }
   }
   .note{
     color:#555555;
+    margin-top: 160px;
+    font-size: 14px;
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
+  .note-title{
+    font-size: 30px;
+    font-weight: bold;
   }
   h3{
     color:#555555;
     border-bottom: 3px solid #26dc46;
     font-size: 26px;
     width: 100px;
-  }
-  .table-results{
-    padding: 20px 20px;
-    border: 2px solid #26dc46;
-    border-radius: 16px;
-    width: 350px;
   }
   table{
     width:350px;
@@ -254,7 +260,7 @@
     color: #ffffff;
     padding: 4px;
     border-radius: 8px;
-    width: 270px;
+    width: 250px;
     font-weight: bold;
     font-size: 14px
   }
